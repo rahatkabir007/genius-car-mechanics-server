@@ -106,7 +106,7 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
     res.send("Running Genius Server")
 })
-app.get('/', (req, res) => {
+app.get('/hello', (req, res) => {
     res.send("Hello Updated Here")
 })
 
