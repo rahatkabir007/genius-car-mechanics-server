@@ -46,7 +46,7 @@ async function run() {
         //need to use dynamic route
         app.get('/services/:id', async (req, res) => {
             const id = req.params.id;
-            console.log("getting services id",id);
+            console.log("getting services id", id);
             const query = { _id: ObjectId(id) };
             const service = await servicesCollection.findOne(query);
             res.json(service);
@@ -105,6 +105,9 @@ run().catch(console.dir);
 //step-4
 app.get('/', (req, res) => {
     res.send("Running Genius Server")
+})
+app.get('/', (req, res) => {
+    res.send("Hello Updated Here")
 })
 
 //step-5
