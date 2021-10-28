@@ -35,7 +35,7 @@ async function run() {
         //create a collection because there can be lot of infos
         const servicesCollection = database.collection('services');
 
-        //step-12 Create a GET API to load data(backend e)
+        //step-12 Create a GET API to load data(frontend e)
         app.get('/services', async (req, res) => {
             const cursor = servicesCollection.find({});
             const services = await cursor.toArray();
@@ -73,6 +73,25 @@ async function run() {
             const query = { _id: ObjectId(id) };
             const deletedService = await servicesCollection.deleteOne(query);
             res.json(deletedService);
+        })
+
+        //step-15 UPDATE API
+        app.put('/services/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedService = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    name: updatedService.name,
+                    description: updatedService.description,
+                    price: updatedService.price,
+                    image: updatedService.image,
+                },
+            };
+            const result = await servicesCollection.updateOne(filter, updateDoc, options);
+            console.log('updating user', req);
+            res.json(result)
         })
 
 
